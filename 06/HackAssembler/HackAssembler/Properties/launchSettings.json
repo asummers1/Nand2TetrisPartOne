@@ -2,7 +2,7 @@
   "profiles": {
     "HackAssembler": {
       "commandName": "Project",
-      "commandLineArgs": "Pong"
+      "commandLineArgs": "Add"
     }
   }
 }
