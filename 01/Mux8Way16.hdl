@@ -1,0 +1,32 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/01/Mux8Way16.hdl
+
+/**
+ * 8-way 16-bit multiplexor:
+ * out = a if sel == 000
+ *       b if sel == 001
+ *       etc.
+ *       h if sel == 111
+ */
+
+CHIP Mux8Way16 {
+    IN a[16], b[16], c[16], d[16],
+       e[16], f[16], g[16], h[16],
+       sel[3];
+    OUT out[16];
+
+    PARTS:
+
+//000 001 010 011 100 101 110 111
+   //The truth table for a..d is the same as Mux4Way16, so we can return the correct possibility for the last two digits
+
+//Get value with 0+required value. Note that .. starts at the index on the right-hand side of the elipses and continues to the left, which matches how we want to access the values in Mux4way16
+  Mux4Way16 (a=a, b=b, c=c, d=d, sel=sel[0..1], out=PossibilityFromFirstTwo);
+
+//Get value with 1+required value
+  Mux4Way16 (a=e, b=f, c=g, d=h, sel=sel[0..1], out=PossibilityFromSecondTwo);
+
+Mux16(a=PossibilityFromFirstTwo, b=PossibilityFromSecondTwo, sel=sel[2], out=out);
+}

@@ -1,0 +1,27 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/01/DMux.hdl
+
+/**
+ * Demultiplexor:
+ * {a, b} = {in, 0} if sel == 0
+ *          {0, in} if sel == 1
+ */
+
+CHIP DMux {
+    IN in, sel;
+    OUT a, b;
+
+    PARTS:
+
+    //How did I convert the truth table to a Boolean expression? Actually, since there are two outputs; I made two Boolean expressions.
+    //a is true when sel is 0 and in is 1. b is true when sel is 1 and in is 1.
+
+    //First input
+    Not (in=sel, out=outsel);
+    And (a=in, b=outsel, out=a);
+
+    //Second input
+    And (a=in, b=sel, out=b);
+}

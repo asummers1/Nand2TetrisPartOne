@@ -1,0 +1,40 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/02/Inc16.hdl
+
+/**
+ * 16-bit incrementer:
+ * out = in + 1 (arithmetic addition)
+ */
+
+CHIP Inc16 {
+    IN in[16];
+    OUT out[16];
+
+    PARTS:
+
+    //Produce a 1
+    And (a=in[0], b=in[0], out=firstDigit);
+    Not (in=firstDigit, out=secondDigit);
+    Nand (a=firstDigit, b=secondDigit, out=one);
+
+    //Perform the addition
+    HalfAdder (a=one, b=in[0], sum=out[0], carry=firstCarry);
+    HalfAdder (a=firstCarry, b=in[1], sum=out[1], carry=secondCarry);
+    HalfAdder (a=secondCarry, b=in[2], sum=out[2], carry=thirdCarry);
+    HalfAdder (a=thirdCarry, b=in[3], sum=out[3], carry=fourthCarry);
+    HalfAdder (a=fourthCarry, b=in[4], sum=out[4], carry=fifthCarry);
+    HalfAdder (a=fifthCarry, b=in[5], sum=out[5], carry=sixthCarry);
+    HalfAdder (a=sixthCarry, b=in[6], sum=out[6], carry=seventhCarry);
+    HalfAdder (a=seventhCarry, b=in[7], sum=out[7], carry=eighthCarry);
+    HalfAdder (a=eighthCarry, b=in[8], sum=out[8], carry=ninthCarry);
+    HalfAdder (a=ninthCarry, b=in[9], sum=out[9], carry=tenthCarry);
+    HalfAdder (a=tenthCarry, b=in[10], sum=out[10], carry=eleventhCarry);
+    HalfAdder (a=eleventhCarry, b=in[11], sum=out[11], carry=twelfthCarry);
+    HalfAdder (a=twelfthCarry, b=in[12], sum=out[12], carry=thirteenthCarry);
+    HalfAdder (a=thirteenthCarry, b=in[13], sum=out[13], carry=fourteenthCarry);
+    HalfAdder (a=fourteenthCarry, b=in[14], sum=out[14], carry=fifteenthCarry);
+    HalfAdder (a=fifteenthCarry, b=in[15], sum=out[15], carry=overflow);
+
+}

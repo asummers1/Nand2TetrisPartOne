@@ -1,0 +1,25 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/01/Or.hdl
+
+ /**
+ * Or gate:
+ * out = 1 if (a == 1 or b == 1)
+ *       0 otherwise
+ */
+
+CHIP Or {
+    IN a, b;
+    OUT out;
+
+    PARTS:
+
+    // If a and b are 0 0, the following lines will convert them to 1 1 and return a 1. This is the only case where OR doesn't work, so we flip that value
+    // 1 and return a 0.
+    Not (in=a, out=outa);
+    Not (in=b, out=outb);
+    
+    And (a=outa, b=outb, out=w1);
+    Not (in=w1, out=out);
+}
